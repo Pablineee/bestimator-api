@@ -24,7 +24,7 @@ const User = db.define('User', {
     }
 }, {
     schema: "bestimator",
-    timestamps: false
+    timestamps: false,
 });
 
 module.exports = User;
