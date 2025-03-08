@@ -1,16 +1,37 @@
-const Sequelize = require('sequelize');
+const { Sequelize } = require('sequelize');
+const dotenv = require('dotenv');
+dotenv.config();
 
-const sequelize = new Sequelize(process.env.DB_NAME, process.env.DB_USER, process.env.DB_PASSWORD, {
-    host: process.env.DB_HOST,
+const sequelize = new Sequelize(process.env.DATABASE_URL, {
     dialect: 'postgres',
+    dialectOptions: {
+        ssl: {
+            require: true,
+            rejectUnauthorized: false,
+        },
+    },
+    logging: false, // Disable logging of SQL querries
+    define: {
+        schema: "bestimator"
+    },
+    pool: {
+        max: 10,
+        min: 2,
+        acquire: 30000,
+        idle: 10000,
+    },
 });
 
-sequelize.sync({ force: false })
-.then(() => {
-    console.log('Database syncronized');
-})
-.catch((error) => {
-    console.error(`Falied to syncronize database: ${error.message}`);
-});
+const connectDB = async () => {
+    try {
+        await sequelize.authenticate();
+        console.log("Connected to PostgreSQL...");
+    } catch (error) {
+        console.error(`Connection Error: ${error.message}`);
+        process.exit(1); // Exit if database connection fails
+    }
+};
+
+connectDB();
 
 module.exports = sequelize;
