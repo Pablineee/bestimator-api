@@ -3,14 +3,8 @@ const express = require('express');
 const dotenv = require('dotenv');
 dotenv.config();
 
-// Import database connection
-const sequelize = require('./config/db');
-
-// Import necessary models
-const User = require("./models/user");
-const Client = require("./models/client");
-const Material = require("./models/material");
-const Estimate = require("./models/estimate");
+// Import Sequelize and models from centralized models/index.js
+const { sequelize, Sequelize, User,  Client, Material, Estimate, JobType, Unit, connectDB } = require('./models/index');
 
 // Import necessary routes
 const materialRoutes = require('./routes/materialRoutes');
@@ -36,6 +30,7 @@ const SERVER_PORT = process.env.PORT || 4000;
 // Function used to Sync database and start server
 const startServer = async () => {
     try {
+        await connectDB(); // Connect to PostgreSQL database instance
         await sequelize.sync({ alter: true }); // Sync DB schema
         console.log("Database Synced Successfully");
 
