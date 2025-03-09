@@ -1,3 +1,5 @@
+const status = require('../config/status');
+
 const Estimate = (sequelize, DataTypes) => sequelize.define('Estimate', {
     estimate_id: {
         type: DataTypes.STRING,
