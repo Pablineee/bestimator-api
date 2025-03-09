@@ -15,7 +15,7 @@ const ProvinceWeight = (sequelize, DataTypes) => sequelize.define('ProvinceWeigh
         default: 1.0,
     },
     province_tax_rate: {
-        type: DataTypes.STRING,
+        type: DataTypes.DECIMAL(4,2),
         allowNull: false,
     }
 }, {
