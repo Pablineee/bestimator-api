@@ -11,6 +11,9 @@ const materialRoutes = require('./routes/materialRoutes');
 const userRoutes = require('./routes/userRoutes');
 const clientRoutes = require('./routes/clientRoutes');
 const estimateRoutes = require('./routes/estimateRoutes');
+const unitRoutes = require('./routes/unitRoutes');
+const jobTypeRoutes = require('./routes/jobTypeRoutes');
+const provinceWeightRoutes = require('./routes/provinceWeightRoutes');
 
 // Initialize Express app
 const app = express();
@@ -23,6 +26,9 @@ app.use('/materials', materialRoutes);
 app.use('/users', userRoutes);
 app.use('/clients', clientRoutes);
 app.use('/estimates', estimateRoutes);
+app.use('/units', unitRoutes);
+app.use('/job-types', jobTypeRoutes);
+app.use('/province-weights', provinceWeightRoutes);
 
 // Set necessary environment variables
 const SERVER_PORT = process.env.PORT || 4000;
