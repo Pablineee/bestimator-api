@@ -8,12 +8,12 @@ const Material = (sequelize, DataTypes) => sequelize.define('Material', {
         allowNull: true, // Product ID from Home Depot API
     },
     name: {
-        type: DataTypes.STRING(100),
+        type: DataTypes.STRING,
         allowNull: false, // Name used in Bestimator API PostgreSQL database
         unique: true,
     },
     product_title: {
-        type: DataTypes.STRING(100),
+        type: DataTypes.STRING,
         allowNull: false, // Product title used in Home Depot API
     },
     job_type_id: {
@@ -24,19 +24,7 @@ const Material = (sequelize, DataTypes) => sequelize.define('Material', {
             key: "job_type_id",
         },
     },
-    low_price: {
-        type: DataTypes.DECIMAL(10, 2),
-        allowNull: true,
-    },
-    med_price: {
-        type: DataTypes.DECIMAL(10, 2),
-        allowNull: true,
-    },
-    high_price: {
-        type: DataTypes.DECIMAL(10, 2),
-        allowNull: true,
-    },
-    average_price: {
+    price: {
         type: DataTypes.DECIMAL(10, 2),
         allowNull: true,
     },
