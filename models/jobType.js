@@ -1,7 +1,4 @@
-const { DataTypes } = require('sequelize');
-const db = require('../config/db');
-
-const JobType = db.define('JobType', {
+const JobType = (sequelize, DataTypes) => sequelize.define('JobType', {
     job_type_id: {
         type: DataTypes.INTEGER,
         autoIncrement: true,

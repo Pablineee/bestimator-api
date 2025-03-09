@@ -1,9 +1,6 @@
-const Sequelize = require('sequelize');
-const db = require('../config/db');
-
-const Estimate = db.define('estimate', {
+const Estimate = (sequelize, DataTypes) => sequelize.define('Estimate', {
     estimate_id: {
-        type: Sequelize.STRING,
+        type: DataTypes.STRING,
         primaryKey: true,
     },
 });

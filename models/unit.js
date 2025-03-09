@@ -1,7 +1,4 @@
-const { DataTypes } = require('sequelize');
-const db = require('../config/db');
-
-const Unit = db.define('Unit', {
+const Unit = (sequelize, DataTypes) => db.define('Unit', {
     unit_id: {
         type: DataTypes.INTEGER,
         autoIncrement: true,
