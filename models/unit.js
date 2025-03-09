@@ -1,4 +1,4 @@
-const Unit = (sequelize, DataTypes) => db.define('Unit', {
+const Unit = (sequelize, DataTypes) => sequelize.define('Unit', {
     unit_id: {
         type: DataTypes.INTEGER,
         autoIncrement: true,

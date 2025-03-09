@@ -42,6 +42,7 @@ const Material = require('./material')(sequelize, Sequelize.DataTypes);
 const Estimate = require('./estimate')(sequelize, Sequelize.DataTypes);
 const JobType = require('./jobType')(sequelize, Sequelize.DataTypes);
 const Unit = require('./unit')(sequelize, Sequelize.DataTypes);
+const ProvinceWeight = require('./provinceWeight')(sequelize, Sequelize.DataTypes);
 
 // Define relationships
 
@@ -65,6 +66,10 @@ Material.belongsTo(Unit, { foreignKey: 'unit_id' });
 JobType.hasMany(Estimate, { foreignKey: 'job_type_id' });
 Estimate.belongsTo(JobType, { foreignKey: 'job_type_id' });
 
+// ProvinceWeights linked to Estimates
+ProvinceWeights.hasMany(Estimate, { foreignKey: 'province_weight_id' });
+Estimate.belongsTo(ProvinceWeight, { foreignKey: 'province_weight_id' })
+
 module.exports = {
   sequelize, // Sequelize connection for syncing and queries
   Sequelize, // Sequelize class for DataTypes usage
@@ -74,5 +79,6 @@ module.exports = {
   Estimate,
   JobType,
   Unit,
+  ProvinceWeight,
   connectDB,
 };
