@@ -67,7 +67,7 @@ JobType.hasMany(Estimate, { foreignKey: 'job_type_id' });
 Estimate.belongsTo(JobType, { foreignKey: 'job_type_id' });
 
 // ProvinceWeights linked to Estimates
-ProvinceWeights.hasMany(Estimate, { foreignKey: 'province_weight_id' });
+ProvinceWeight.hasMany(Estimate, { foreignKey: 'province_weight_id' });
 Estimate.belongsTo(ProvinceWeight, { foreignKey: 'province_weight_id' })
 
 module.exports = {
