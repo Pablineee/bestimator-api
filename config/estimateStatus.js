@@ -1,8 +1,8 @@
-const status = {
+const estimateStatus = {
     DRAFT: 'DRAFT',
     FINAL: 'FINAL',
     ACCEPTED: 'ACCEPTED',
     REJECTED: 'REJECTED'
 };
 
-module.exports = status;
+module.exports = estimateStatus;
