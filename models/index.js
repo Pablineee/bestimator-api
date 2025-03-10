@@ -2,6 +2,7 @@
 
 const { Sequelize } = require('sequelize');
 const dotenv = require('dotenv');
+const EstimateMaterial = require('./estimateMaterial');
 dotenv.config();
 
 // Database connection implementation transferred from /config/db.js (deleted)
@@ -40,6 +41,7 @@ const User = require('./user')(sequelize, Sequelize.DataTypes); // Avoids circul
 const Client = require('./client')(sequelize, Sequelize.DataTypes);
 const Material = require('./material')(sequelize, Sequelize.DataTypes);
 const Estimate = require('./estimate')(sequelize, Sequelize.DataTypes);
+const EstimateMaterial = require('./estimateMaterial')(sequelize, Sequelize.DataTypes);
 const JobType = require('./jobType')(sequelize, Sequelize.DataTypes);
 const Unit = require('./unit')(sequelize, Sequelize.DataTypes);
 const ProvinceWeight = require('./provinceWeight')(sequelize, Sequelize.DataTypes);
@@ -70,6 +72,10 @@ Estimate.belongsTo(JobType, { foreignKey: 'job_type_id' });
 ProvinceWeight.hasMany(Estimate, { foreignKey: 'province_weight_id' });
 Estimate.belongsTo(ProvinceWeight, { foreignKey: 'province_weight_id' })
 
+// Many-to-Many relationship between Estimates and Materials
+Estimate.belongsToMany(Material, { through: EstimateMaterial, foreignKey: 'estimate_id' });
+Material.belongsToMany(Estimate, { through: EstimateMaterial, foreignKey: 'material_id' });
+
 module.exports = {
   sequelize, // Sequelize connection for syncing and queries
   Sequelize, // Sequelize class for DataTypes usage
@@ -77,6 +83,7 @@ module.exports = {
   Client,
   Material,
   Estimate,
+  EstimateMaterial,
   JobType,
   Unit,
   ProvinceWeight,
