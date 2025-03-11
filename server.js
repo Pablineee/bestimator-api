@@ -14,6 +14,7 @@ const estimateRoutes = require('./routes/estimateRoutes');
 const unitRoutes = require('./routes/unitRoutes');
 const jobTypeRoutes = require('./routes/jobTypeRoutes');
 const provinceWeightRoutes = require('./routes/provinceWeightRoutes');
+const swaggerRoutes = require('./routes/swaggerRoutes');
 
 // Import Clerk authentication utility
 const clerkAuth = require('./utils/clerkAuth');
@@ -25,26 +26,27 @@ const app = express();
 app.use(express.json());
 
 // Define API routes (Unprotected)
-app.use('/materials', materialRoutes);
-app.use('/users', userRoutes);
-app.use('/clients', clientRoutes);
-app.use('/estimates', estimateRoutes);
-app.use('/units', unitRoutes);
-app.use('/job-types', jobTypeRoutes);
-app.use('/province-weights', provinceWeightRoutes);
+app.use('/v1/materials', materialRoutes);
+app.use('/v1/users', userRoutes);
+app.use('/v1/clients', clientRoutes);
+app.use('/v1/estimates', estimateRoutes);
+app.use('/v1/units', unitRoutes);
+app.use('/v1/job-types', jobTypeRoutes);
+app.use('/v1/province-weights', provinceWeightRoutes);
+app.use('/api-docs', swaggerRoutes);
 
 // Protected API routes - For use with Clerk authorization headers
 /*
     Will leave commented until neccessary clerk 
     middleware is implemented in frontend API requests
 
-app.use('/materials', clerkAuth, materialRoutes);
-app.use('/users', clerkAuth, userRoutes);
-app.use('/clients', clerkAuth, clientRoutes);
-app.use('/estimates', clerkAuth, estimateRoutes);
-app.use('/units', clerkAuth, unitRoutes);
-app.use('/job-types', clerkAuth, jobTypeRoutes);
-app.use('/province-weights', clerkAuth, provinceWeightRoutes);
+app.use('/v1/materials', clerkAuth, materialRoutes);
+app.use('/v1/users', clerkAuth, userRoutes);
+app.use('/v1/clients', clerkAuth, clientRoutes);
+app.use('/v1/estimates', clerkAuth, estimateRoutes);
+app.use('/v1/units', clerkAuth, unitRoutes);
+app.use('/v1/job-types', clerkAuth, jobTypeRoutes);
+app.use('/v1/province-weights', clerkAuth, provinceWeightRoutes);
 
 */
 
