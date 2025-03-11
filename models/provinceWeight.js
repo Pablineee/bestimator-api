@@ -20,6 +20,7 @@ const ProvinceWeight = (sequelize, DataTypes) => sequelize.define('ProvinceWeigh
     }
 }, {
     schema: "bestimator",
+    freezeTableName: true,
     timestamps: false,
 });
 

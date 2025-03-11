@@ -2,7 +2,6 @@
 
 const { Sequelize } = require('sequelize');
 const dotenv = require('dotenv');
-const EstimateMaterial = require('./estimateMaterial');
 dotenv.config();
 
 // Database connection implementation transferred from /config/db.js (deleted)

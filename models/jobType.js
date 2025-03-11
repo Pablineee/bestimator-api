@@ -11,6 +11,7 @@ const JobType = (sequelize, DataTypes) => sequelize.define('JobType', {
     },
 }, {
     schema: "bestimator",
+    freezeTableName: true,
     timestamps: false,
 });
 

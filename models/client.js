@@ -21,6 +21,7 @@ const Client = (sequelize, DataTypes) => sequelize.define('Client', {
     }
 }, {
     schema: "bestimator",
+    freezeTableName: true,
     timestamps: false,
 });
 

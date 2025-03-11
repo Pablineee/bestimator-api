@@ -61,6 +61,9 @@ const Estimate = (sequelize, DataTypes) => sequelize.define('Estimate', {
     total_cost: {
         type: DataTypes.DECIMAL(10, 2)
     }
+}, {
+    schema: "bestimator",
+    freezeTableName: true
 });
 
 module.exports = Estimate;

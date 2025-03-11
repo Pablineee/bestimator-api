@@ -37,6 +37,7 @@ const EstimateMaterial = (sequelize, DataTypes) => sequelize.define('EstimateMat
     },
 }, {
     schema: "bestimator",
+    freezeTableName: true,
     timestamps: false
 });
 

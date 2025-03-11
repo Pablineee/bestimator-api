@@ -11,6 +11,7 @@ const Unit = (sequelize, DataTypes) => sequelize.define('Unit', {
     },
 }, {
     schema: "bestimator",
+    freezeTableName: true,
     timestamps: false,
 });
 
