@@ -63,7 +63,7 @@ const Estimate = (sequelize, DataTypes) => sequelize.define('Estimate', {
     }
 }, {
     schema: "bestimator",
-    freezeTableName: true
+    freezeTableName: false
 });
 
 module.exports = Estimate;

@@ -47,7 +47,7 @@ const Material = (sequelize, DataTypes) => sequelize.define('Material', {
     },
 }, {
     schema: "bestimator",
-    freezeTableName: true
+    freezeTableName: false
 });
 
 module.exports = Material;

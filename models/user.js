@@ -21,7 +21,7 @@ const User = (sequelize, DataTypes) => sequelize.define('User', {
     }
 }, {
     schema: "bestimator",
-    freezeTableName: true,
+    freezeTableName: false,
     timestamps: false,
 });
 
