@@ -3,17 +3,53 @@ const router = express.Router();
 const { getJobTypes, addJobType, updateJobType, deleteJobType } = require('../controllers/jobTypeController');
 
 // Get all Job Type
+/**
+ * @swagger
+ * /v1/job-types:
+ *   get:
+ *     summary: Get All Job Types.
+ *     description: Get all existing Job Types.
+ *     tags: [Job Types]
+ *     responses:
+ *       '200':
+ *         description: A successful response
+ *       '500':
+ *         description: Internal server error
+ */
 router.get('/', async (req, res) => {
     try {
         const jobTypes = await getJobTypes();
         return jobTypes.length > 0 ? res.status(200).json({ jobTypes }) : res.status(200).json({});
     } catch(err){
         console.error(`Error: ${err.message}`);
-        return res.status(501).json({ error: 'Internal Server Error' });
+        return res.status(500).json({ error: 'Internal Server Error' });
     }
 });
 
 // Create new Job Type
+/**
+ * @swagger
+ * /v1/job-types:
+ *   post:
+ *     summary: Create New Job Type.
+ *     description: Create a new job type.
+ *     tags: [Job Types]
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             properties:
+ *               job_type:
+ *                 type: string
+ *                 example: painting
+ *     responses:
+ *       '201':
+ *         description: A successful response
+ *       '500':
+ *         description: Internal server error
+ */
 router.post('/', async (req, res) => {
     try {
         const { job_type } = req.body;
@@ -24,11 +60,39 @@ router.post('/', async (req, res) => {
         });
     } catch(err){
         console.error(`Error: ${err.message}`);
-        return res.status(501).json({ error: 'Internal Server Error' });
+        return res.status(500).json({ error: 'Internal Server Error' });
     }
 });
 
 // Update existing Job Type
+/**
+ * @swagger
+ * /v1/job-types:
+ *   put:
+ *     summary: Update Existing Job Type.
+ *     description: Update existing Job Type by ID.
+ *     tags: [Job Types]
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             properties:
+ *               job_type_id:
+ *                 type: integer
+ *                 example: 1
+ *               job_type:
+ *                 type: string
+ *                 example: painting
+ *     responses:
+ *       '200':
+ *         description: A successful response
+ *       '404':
+ *         description: Job Type not found
+ *       '500':
+ *         description: Internal server error
+ */
 router.put('/', async (req, res) => {
     try {
         const { job_type_id, job_type } = req.body;
@@ -41,11 +105,36 @@ router.put('/', async (req, res) => {
         return res.status(404).json({ error: 'Job Type not found' });
     } catch(err){
         console.error(`Error: ${err.message}`);
-        return res.status(501).json({ error: 'Internal Server Error' });
+        return res.status(500).json({ error: 'Internal Server Error' });
     }
 });
 
 // Delete existing Job Type
+/**
+ * @swagger
+ * /v1/job-types:
+ *   delete:
+ *     summary: Delete Existing Job Type.
+ *     description: Delete existing Job Type by ID.
+ *     tags: [Job Types]
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             properties:
+ *               job_type_id:
+ *                 type: integer
+ *                 example: 1
+ *     responses:
+ *       '204':
+ *         description: A successful response
+ *       '404':
+ *         description: Job Type not found
+ *       '500':
+ *         description: Internal server error
+ */
 router.delete('/', async (req, res) => {
     try {
         const { job_type_id } = req.body;
@@ -56,7 +145,7 @@ router.delete('/', async (req, res) => {
         return res.status(404).json({ error: 'Job Type not found' });
     } catch(err){
         console.error(`Error: ${err.message}`);
-        return res.status(501).json({ error: 'Internal Server Error' });
+        return res.status(500).json({ error: 'Internal Server Error' });
     }
 });
 
