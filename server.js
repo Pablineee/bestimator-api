@@ -15,13 +15,16 @@ const unitRoutes = require('./routes/unitRoutes');
 const jobTypeRoutes = require('./routes/jobTypeRoutes');
 const provinceWeightRoutes = require('./routes/provinceWeightRoutes');
 
+// Import Clerk authentication utility
+const clerkAuth = require('./utils/clerkAuth');
+
 // Initialize Express app
 const app = express();
 
 // Implement middleware
 app.use(express.json());
 
-// Define API routes
+// Define API routes (Unprotected)
 app.use('/materials', materialRoutes);
 app.use('/users', userRoutes);
 app.use('/clients', clientRoutes);
@@ -30,6 +33,21 @@ app.use('/units', unitRoutes);
 app.use('/job-types', jobTypeRoutes);
 app.use('/province-weights', provinceWeightRoutes);
 
+// Protected API routes - For use with Clerk authorization headers
+/*
+    Will leave commented until neccessary clerk 
+    middleware is implemented in frontend API requests
+
+app.use('/materials', clerkAuth, materialRoutes);
+app.use('/users', clerkAuth, userRoutes);
+app.use('/clients', clerkAuth, clientRoutes);
+app.use('/estimates', clerkAuth, estimateRoutes);
+app.use('/units', clerkAuth, unitRoutes);
+app.use('/job-types', clerkAuth, jobTypeRoutes);
+app.use('/province-weights', clerkAuth, provinceWeightRoutes);
+
+*/
+
 // Set necessary environment variables
 const SERVER_PORT = process.env.PORT || 4000;
 
@@ -37,7 +55,6 @@ const SERVER_PORT = process.env.PORT || 4000;
 const startServer = async () => {
     try {
         await connectDB(); // Connect to PostgreSQL database instance
-        await sequelize.sync({ alter: true }); // Sync DB schema
         console.log("Database Synced Successfully");
 
         app.listen(SERVER_PORT, () =>
@@ -51,3 +68,16 @@ const startServer = async () => {
 
 // Start the server
 startServer();
+
+// ---------- Testing Purposes -------------
+
+// Request is successful (no authentication)
+app.get('/test', (req, res) => {
+    return res.json({ message: 'Success' });
+});
+
+// Endpoint uses Clerk Authentication
+// Will return error, unless Clerk authorization headers are included in API request
+app.get('/test-auth', clerkAuth, (req, res) => {
+    return res.json({ message: 'Success' });
+});
