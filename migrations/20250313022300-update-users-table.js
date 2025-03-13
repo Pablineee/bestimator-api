@@ -12,8 +12,8 @@ module.exports = {
     // Create all tables
     await queryInterface.createTable({ schema: 'bestimator', tableName: 'Users' }, {
       user_id: {
-        type: Sequelize.DataTypes.STRING,
-        primaryKey: true,
+          type: Sequelize.DataTypes.STRING,
+          primaryKey: true,
       },
       email: {
           type: Sequelize.DataTypes.STRING,
@@ -30,12 +30,28 @@ module.exports = {
       },
       company_name: {
           type: Sequelize.DataTypes.STRING,
+      },
+      phone_number: {
+          type: Sequelize.DataTypes.STRING,
+          allowNull: true,
+      },
+      address: {
+          type: Sequelize.DataTypes.STRING,
+      },
+      profile_image_url: {
+          type: Sequelize.DataTypes.STRING,
+          allowNull: true,
+      },
+      is_active: {
+          type: Sequelize.DataTypes.BOOLEAN,
+          allowNull: false,
+          defaultValue: true,
       }
     });
     await queryInterface.createTable({ schema: 'bestimator', tableName: 'Clients' }, {
       client_id: {
-        type: Sequelize.DataTypes.STRING,
-        primaryKey: true,
+          type: Sequelize.DataTypes.STRING,
+          primaryKey: true,
       },
       email: {
           type: Sequelize.DataTypes.STRING,
