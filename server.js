@@ -1,5 +1,6 @@
 // Import necessary libraries
 const express = require('express');
+const cors = require('cors');
 const dotenv = require('dotenv');
 dotenv.config();
 
@@ -17,13 +18,15 @@ const provinceWeightRoutes = require('./routes/provinceWeightRoutes');
 const swaggerRoutes = require('./routes/swaggerRoutes');
 
 // Import Clerk authentication utility
-const clerkAuth = require('./utils/clerkAuth');
+const { clerkAuth, clerkMiddleware } = require('./utils/clerkAuth');
 
 // Initialize Express app
 const app = express();
 
 // Implement middleware
 app.use(express.json());
+app.use(clerkMiddleware());
+app.use(cors({ origin: process.env.FRONTEND_URL }));
 
 // Define API routes (Unprotected)
 app.use('/v1/materials', materialRoutes);
@@ -47,7 +50,7 @@ app.use('/v1/estimates', clerkAuth, estimateRoutes);
 app.use('/v1/units', clerkAuth, unitRoutes);
 app.use('/v1/job-types', clerkAuth, jobTypeRoutes);
 app.use('/v1/province-weights', clerkAuth, provinceWeightRoutes);
-
+app.use('/api-docs', clerkAuth, swaggerRoutes);
 */
 
 // Set necessary environment variables
