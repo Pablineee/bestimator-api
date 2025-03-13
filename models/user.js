@@ -18,6 +18,23 @@ const User = (sequelize, DataTypes) => sequelize.define('User', {
     },
     company_name: {
         type: DataTypes.STRING,
+    },
+    phone_number: {
+        type: DataTypes.STRING,
+        allowNull: true,
+    },
+    address: {
+        type: DataTypes.STRING,
+        allowNull: true,
+    },
+    profile_image_url: {
+        type: DataTypes.STRING,
+        allowNull: true,
+    },
+    is_active: {
+        type: DataTypes.BOOLEAN,
+        allowNull: false,
+        defaultValue: true
     }
 }, {
     schema: "bestimator",
