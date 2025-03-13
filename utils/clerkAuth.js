@@ -1,6 +1,9 @@
-const { requireAuth } = require('@clerk/express');
+const { requireAuth, clerkMiddleware } = require('@clerk/express');
 
 // Middleware to authenticate user and protect routes
 const clerkAuth = requireAuth();
 
-module.exports = clerkAuth;
+module.exports = {
+    clerkAuth,
+    clerkMiddleware
+}
