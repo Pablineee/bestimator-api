@@ -45,6 +45,10 @@ const Material = (sequelize, DataTypes) => sequelize.define('Material', {
     product_url: {
         type: DataTypes.STRING,
     },
+    coverage: {
+        type: DataTypes.Decimal(10, 2),
+        allowNull: true,
+    }
 }, {
     schema: "bestimator",
     freezeTableName: false
