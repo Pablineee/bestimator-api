@@ -25,7 +25,7 @@ const app = express();
 
 // Implement middleware
 app.use(express.json());
-app.use(clerkMiddleware());
+// app.use(clerkMiddleware());
 app.use(cors({ origin: process.env.FRONTEND_URL }));
 
 // Define API routes (Unprotected)
