@@ -29,24 +29,24 @@ app.use(clerkMiddleware());
 app.use(cors({ origin: process.env.FRONTEND_URL }));
 
 // Define API routes (Unprotected)
-// app.use('/v1/materials', materialRoutes);
-// app.use('/v1/users', userRoutes);
-// app.use('/v1/clients', clientRoutes);
-// app.use('/v1/estimates', estimateRoutes);
-// app.use('/v1/units', unitRoutes);
-// app.use('/v1/job-types', jobTypeRoutes);
-// app.use('/v1/province-weights', provinceWeightRoutes);
-// app.use('/api-docs', swaggerRoutes);
+app.use('/v1/materials', materialRoutes);
+app.use('/v1/users', userRoutes);
+app.use('/v1/clients', clientRoutes);
+app.use('/v1/estimates', estimateRoutes);
+app.use('/v1/units', unitRoutes);
+app.use('/v1/job-types', jobTypeRoutes);
+app.use('/v1/province-weights', provinceWeightRoutes);
+app.use('/api-docs', swaggerRoutes);
 
 // Protected API routes - For use with Clerk authorization headers
-app.use('/v1/materials', clerkAuth, materialRoutes);
-app.use('/v1/users', clerkAuth, userRoutes);
-app.use('/v1/clients', clerkAuth, clientRoutes);
-app.use('/v1/estimates', clerkAuth, estimateRoutes);
-app.use('/v1/units', clerkAuth, unitRoutes);
-app.use('/v1/job-types', clerkAuth, jobTypeRoutes);
-app.use('/v1/province-weights', clerkAuth, provinceWeightRoutes);
-app.use('/api-docs', clerkAuth, swaggerRoutes);
+// app.use('/v1/materials', clerkAuth, materialRoutes);
+// app.use('/v1/users', clerkAuth, userRoutes);
+// app.use('/v1/clients', clerkAuth, clientRoutes);
+// app.use('/v1/estimates', clerkAuth, estimateRoutes);
+// app.use('/v1/units', clerkAuth, unitRoutes);
+// app.use('/v1/job-types', clerkAuth, jobTypeRoutes);
+// app.use('/v1/province-weights', clerkAuth, provinceWeightRoutes);
+// app.use('/api-docs', clerkAuth, swaggerRoutes);
 
 // Set necessary environment variables
 const SERVER_PORT = process.env.PORT || 4000;
