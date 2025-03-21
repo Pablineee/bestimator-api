@@ -57,8 +57,8 @@ const startServer = async () => {
         await connectDB(); // Connect to PostgreSQL database instance
         console.log("Database Synced Successfully");
 
-        app.listen(SERVER_PORT, () =>
-            console.log(`Server running on http://localhost:${SERVER_PORT}`)
+        app.listen(SERVER_PORT, '0.0.0.0', () =>
+            console.log(`Server running on http://0.0.0.0:${SERVER_PORT}`)
         );
     } catch (err) {
         console.error(`Database Sync Error: ${err.message}`);
