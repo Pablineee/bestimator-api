@@ -46,7 +46,7 @@ const Material = (sequelize, DataTypes) => sequelize.define('Material', {
         type: DataTypes.STRING,
     },
     coverage: {
-        type: DataTypes.Decimal(10, 2),
+        type: DataTypes.DECIMAL(10, 2),
         allowNull: true,
     }
 }, {

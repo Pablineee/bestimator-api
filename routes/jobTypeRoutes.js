@@ -1,6 +1,6 @@
 const express = require('express');
 const router = express.Router();
-const { getJobTypes, addJobType, updateJobType, deleteJobType } = require('../controllers/jobTypeController');
+const { getJobTypes, getJobTypeById, addJobType, updateJobType, deleteJobType } = require('../controllers/jobTypeController');
 
 // Get all Job Type
 /**
@@ -22,6 +22,41 @@ router.get('/', async (req, res) => {
         return jobTypes.length > 0 ? res.status(200).json({ jobTypes }) : res.status(200).json({});
     } catch(err){
         console.error(`Error: ${err.message}`);
+        return res.status(500).json({ error: 'Internal Server Error' });
+    }
+});
+
+/**
+ * @swagger
+ * /v1/job-types/{job_type_id}:
+ *   get:
+ *     summary: Get Job Type by ID
+ *     description: Retrieve a specific job type by its unique ID.
+ *     tags: [Job Types]
+ *     parameters:
+ *       - in: path
+ *         name: job_type_id
+ *         required: true
+ *         schema:
+ *           type: integer
+ *         description: The unique ID of the job type.
+ *     responses:
+ *       200:
+ *         description: A successful response
+ *       404:
+ *         description: Job type not found.
+ *       500:
+ *         description: Internal server error.
+ */
+router.get('/:job_type_id', async (req, res) => {
+    try {
+        const jobType = await getJobTypeById(req.params.job_type_id);
+        if (!jobType){
+            return res.status(404).json({ error: 'Job type not found' });
+        }
+        return res.status(200).json(jobType);
+    } catch (err) {
+        console.error(err.message);
         return res.status(500).json({ error: 'Internal Server Error' });
     }
 });

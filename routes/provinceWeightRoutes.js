@@ -26,6 +26,41 @@ router.get('/', async (req, res) => {
     }
 });
 
+/**
+ * @swagger
+ * /v1/province-weights/{province_weight_id}:
+ *   get:
+ *     summary: Get Province Weight by ID
+ *     description: Retrieve province pricing multiplier and tax rate by ID.
+ *     tags: [Province Weights]
+ *     parameters:
+ *       - in: path
+ *         name: province_weight_id
+ *         required: true
+ *         schema:
+ *           type: integer
+ *         description: The unique ID of the province weight.
+ *     responses:
+ *       200:
+ *         description: A successful response
+ *       404:
+ *         description: Province weight not found.
+ *       500:
+ *         description: Internal server error.
+ */
+router.get('/:province_weight_id', async (req, res) => {
+    try {
+        const province = await getProvinceWeightById(req.params.province_weight_id);
+        if (!province){
+            return res.status(404).json({ error: 'Province weight not found' });
+        }
+        return res.status(200).json(province);
+    } catch (err) {
+        console.error(err.message);
+        return res.status(500).json({ error: 'Internal Server Error' });
+    }
+});
+
 // Create new Province Weight
 /**
  * @swagger

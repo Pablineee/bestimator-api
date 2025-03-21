@@ -5,6 +5,12 @@ const getProvinceWeights = async () => {
     return provinceWeights;
 };
 
+const getProvinceWeightById = async (provinceWeightId) => {
+    const provinceWeight = await ProvinceWeight.findByPk(provinceWeightId);
+    if (!provinceWeight) return null;
+    return provinceWeight;
+};
+
 const addProvinceWeight = async (data) => {
     const newProvinceWeight = await ProvinceWeight.create({
         province: data.province,
@@ -42,6 +48,7 @@ const deleteProvinceWeight = async (provinceWeightId) => {
 module.exports = {
     addProvinceWeight,
     getProvinceWeights,
+    getProvinceWeightById,
     updateProvinceWeight,
     deleteProvinceWeight
 };

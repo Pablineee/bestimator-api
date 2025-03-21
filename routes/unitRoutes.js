@@ -1,6 +1,6 @@
 const express = require('express');
 const router = express.Router();
-const { getUnits, addUnit, updateUnit, deleteUnit } = require('../controllers/unitController');
+const { getUnits, getUnitById, addUnit, updateUnit, deleteUnit } = require('../controllers/unitController');
 
 // Get all Unit
 /**
@@ -22,6 +22,41 @@ router.get('/', async (req, res) => {
         return units.length > 0 ? res.status(200).json({ units }) : res.status(200).json({});
     } catch(err){
         console.error(`Error: ${err.message}`);
+        return res.status(500).json({ error: 'Internal Server Error' });
+    }
+});
+
+/**
+ * @swagger
+ * /v1/units/{unit_id}:
+ *   get:
+ *     summary: Get Unit by ID
+ *     description: Retrieve a specific measurement unit by its ID.
+ *     tags: [Units]
+ *     parameters:
+ *       - in: path
+ *         name: unit_id
+ *         required: true
+ *         schema:
+ *           type: integer
+ *         description: The unique ID of the unit.
+ *     responses:
+ *       200:
+ *         description: A successful response
+ *       404:
+ *         description: Unit not found.
+ *       500:
+ *         description: Internal server error.
+ */
+router.get('/:unit_id', async (req, res) => {
+    try {
+        const unit = await getUnitById(req.params.unit_id);
+        if (!unit){
+            return res.status(404).json({ error: 'Unit not found' });
+        }
+        return res.status(200).json(unit);
+    } catch (err) {
+        console.error(err.message);
         return res.status(500).json({ error: 'Internal Server Error' });
     }
 });

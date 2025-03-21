@@ -5,6 +5,12 @@ const getJobTypes = async () => {
     return jobTypes;
 };
 
+const getJobTypeById = async (jobTypeId) => {
+    const jobType = await JobType.findByPk(jobTypeId);
+    if (!jobType) return null;
+    return jobType;
+};
+
 const addJobType = async (jobType) => {
     const newJobType = await JobType.create({
         job_type: jobType
@@ -36,6 +42,7 @@ const deleteJobType = async (jobTypeId) => {
 module.exports = {
     addJobType,
     getJobTypes,
+    getJobTypeById,
     updateJobType,
     deleteJobType
 };

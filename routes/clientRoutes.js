@@ -1,6 +1,6 @@
 const express = require('express');
 const router = express.Router();
-const { getClients, addClient, updateClient, deleteClient } = require('../controllers/clientController');
+const { getClients, getClientById, addClient, updateClient, deleteClient } = require('../controllers/clientController');
 
 // Get all Clients
 /**
@@ -22,6 +22,39 @@ router.get('/', async (req, res) => {
         return clients.length > 0 ? res.status(200).json({ clients }) : res.status(200).json({});
     } catch(err){
         console.error(`Error: ${err.message}`);
+        return res.status(500).json({ error: 'Internal Server Error' });
+    }
+});
+
+/**
+ * @swagger
+ * /v1/clients/{client_id}:
+ *   get:
+ *     summary: Get Client by ID
+ *     tags: [Clients]
+ *     parameters:
+ *       - in: path
+ *         name: client_id
+ *         required: true
+ *         schema:
+ *           type: string
+ *     responses:
+ *       200:
+ *         description: A successful response
+ *       404:
+ *         description: Client not found
+ *       500:
+ *         description: Internal server error
+ */
+router.get('/:client_id', async (req, res) => {
+    try {
+        const client = await getClientById(req.params.client_id);
+        if (!client){
+            return res.status(404).json({ error: 'Client not found' });
+        } 
+        return res.status(200).json(client);
+    } catch (err) {
+        console.error(err.message);
         return res.status(500).json({ error: 'Internal Server Error' });
     }
 });

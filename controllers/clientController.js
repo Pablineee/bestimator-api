@@ -6,6 +6,12 @@ const getClients = async () => {
     return clients;
 };
 
+const getClientById = async (clientId) => {
+    const client = await Client.findByPk(clientId);
+    if (!client) return null;
+    return client;
+};
+
 const addClient = async (data) => {
     const newClient = await Client.create({
         client_id: uuid(),
@@ -46,6 +52,7 @@ const deleteClient = async (clientId) => {
 module.exports = {
     addClient,
     getClients,
+    getClientById,
     updateClient,
     deleteClient
 };

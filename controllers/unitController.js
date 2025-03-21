@@ -5,6 +5,12 @@ const getUnits = async () => {
     return units;
 };
 
+const getUnitById = async (unitId) => {
+    const unit = await Unit.findByPk(unitId);
+    if (!unit) return null;
+    return unit;
+};
+
 const addUnit = async (unitName) => {
     const newUnit = await Unit.create({
         unit_name: unitName
@@ -36,6 +42,7 @@ const deleteUnit = async (unitId) => {
 module.exports = {
     addUnit,
     getUnits,
+    getUnitById,
     updateUnit,
     deleteUnit
 };
