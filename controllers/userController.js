@@ -13,11 +13,11 @@ const findOrAddUser = async (clerkUserId, clerkUser) => {
     if (!user){
         user = await User.create({
             user_id: clerkUserId,
-            email: clerkUser.emailAddresses[0].emailAddress,
-            first_name: clerkUser.firstName,
-            last_name: clerkUser.lastName,
+            email: clerkUser.emailAddresses?.[0]?.emailAddress || '',
+            first_name: clerkUser.firstName || '',
+            last_name: clerkUser.lastName || '',
             company_name: '',
-            phone_number: clerkUser.phoneNumbers[0].phoneNumber || '',
+            phone_number: clerkUser.phoneNumbers?.[0]?.phoneNumber || '',
             address: '',
             profile_image_url: clerkUser.imageUrl || '',
         });
