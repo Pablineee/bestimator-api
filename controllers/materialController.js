@@ -1,9 +1,20 @@
-const { Material } = require('../models/index');
+const { Material, JobType, Unit } = require('../models/index');
 const { v4: uuid } = require('uuid');
 
 // Get all materials
 const getMaterials = async () => {
-    const materials = await Material.findAll();
+    const materials = await Material.findAll({
+        include: [
+            {
+                model: JobType,
+                attributes: ['job_type_id', 'job_type'],
+            },
+            {
+                model: Unit,
+                attributes: ['unit_id', 'unit_name'],
+            }
+        ]
+    });
     return materials;
 };
 
