@@ -85,7 +85,7 @@ router.post('/', async (req, res) => {
         const clerkUser = await clerkClient.users.getUser(clerkUserId);
         const newUser = await findOrAddUser(clerkUserId ,clerkUser);
         return res.status(201).json({
-            message: 'New User added successfully',
+            message: 'User successfully synced with database',
             data: newUser,
         });
     } catch(err){
