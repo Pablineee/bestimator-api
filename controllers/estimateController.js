@@ -30,8 +30,11 @@ const getEstimateById = async (estimateId) => {
             { model: JobType, attributes: ['job_type'] },
             { model: ProvinceWeight, attributes: ['province', 'province_weight', 'province_tax_rate'] },
             { 
-                model: EstimateMaterial,
-                include: [{ model: Material, attributes: ['name', 'price', 'unit_id', 'coverage'] }]
+                model: Material,
+                attributes: ['name', 'price', 'unit_id', 'coverage'],
+                through: {
+                    attributes: ['quantity', 'initial_unit_cost', 'total_cost']
+                }
             }
         ]
     });
