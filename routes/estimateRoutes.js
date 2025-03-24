@@ -23,7 +23,8 @@ const {
  */
 router.get('/', async (req, res) => {
   try {
-    const estimates = await getEstimates();
+    const userId = req.auth.userId;
+    const estimates = await getEstimates(userId);
     return res.status(200).json({ estimates });
   } catch (err) {
     console.error(`Error: ${err.message}`);
@@ -55,8 +56,9 @@ router.get('/', async (req, res) => {
  */
 router.get('/:estimate_id', async (req, res) => {
   try {
+    const userId = req.auth.userId;
     const { estimate_id } = req.params;
-    const estimate = await getEstimateById(estimate_id);
+    const estimate = await getEstimateById(userId, estimate_id);
     if (!estimate) {
       return res.status(404).json({ error: 'Estimate not found' });
     }

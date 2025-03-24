@@ -2,8 +2,11 @@ const { Estimate, EstimateMaterial, Material, JobType, ProvinceWeight, User, Cli
 const { v4: uuid } = require('uuid');
 
 // Get all estimates
-const getEstimates = async () => {
+const getEstimates = async (userId) => {
     const estimates = await Estimate.findAll({
+        where: {
+            user_id: userId
+        },
         include: [
             { model: User, attributes: ['user_id', 'email', 'first_name', 'last_name'] },
             { model: Client, attributes: ['client_id', 'email', 'first_name', 'last_name'] },
@@ -22,8 +25,11 @@ const getEstimates = async () => {
 };
 
 // Get an estimate by ID
-const getEstimateById = async (estimateId) => {
+const getEstimateById = async (userId, estimateId) => {
     const estimate = await Estimate.findByPk(estimateId, {
+        where: {
+            user_id: userId
+        },
         include: [
             { model: User, attributes: ['user_id', 'email', 'first_name', 'last_name'] },
             { model: Client, attributes: ['client_id', 'email', 'first_name', 'last_name'] },
