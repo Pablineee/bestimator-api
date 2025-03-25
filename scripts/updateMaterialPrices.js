@@ -15,4 +15,5 @@ const updateMaterialPrices = async () => {
     }
 };
 
-updateMaterialPrices();
+// Update all Material prices in database and exit
+updateMaterialPrices().finally(() => process.exit(0));

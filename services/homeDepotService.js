@@ -37,8 +37,12 @@ const fetchPricesBySkus = async (skus) => {
 
 const fetchPricesInBatches = async () => {
     // Retrieve all product IDs from database
-
     const skus = await getAllSkus();
+
+    if (!Array.isArray(skus) || skus.length === 0) {
+        console.warn(`${new Date().toISOString()} --- No SKUs found. Skipping fetch.`);
+        return {}; // Return empty object
+    }
 
     // Object used to store product IDs and their respective updated prices
     const updatedPrices = new Object();
