@@ -33,8 +33,10 @@ const updatePrices = async (priceData) => {
                     // Ensure prices with more than two decimal places are not rounded up
                     const match = priceData[productId].toString().match(/^-?\d+(?:\.\d{0,2})?/)[0];
                     const updatedPrice = match ? parseFloat(match): null; // Make price null if regex match fails
+                    const pricesAreEqual = Math.abs(updatedPrice - originalPrice) < 0.01;
+
                     // Update price only if updated price is different from original price
-                    if (updatedPrice !== null && updatedPrice !== originalPrice){
+                    if (updatedPrice !== null && !pricesAreEqual){
                         const priceUpdated = await Material.update(
                             { price: updatedPrice },
                             {
@@ -51,7 +53,7 @@ const updatePrices = async (priceData) => {
                         console.log(`${new Date().toISOString()} --- Material with product ID: ${productId} was successfully updated from ${originalPrice} to ${updatedPrice}`);
 
                     } else {
-                        console.error(`${new Date().toISOString()} --- Material with product ID: ${productId} has an invalid price`);
+                        console.error(`${new Date().toISOString()} --- Material with product ID: ${productId} did not require a price update`);
                     }
 
                 } catch(err){
