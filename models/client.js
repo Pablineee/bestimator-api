@@ -3,6 +3,14 @@ const Client = (sequelize, DataTypes) => sequelize.define('Client', {
         type: DataTypes.STRING,
         primaryKey: true,
     },
+    user_id: {
+        type: DataTypes.STRING,
+        allowNull: false,
+        references: {
+            model: "User",
+            key: "user_id",
+        },
+    },
     email: {
         type: DataTypes.STRING,
         allowNull: false,

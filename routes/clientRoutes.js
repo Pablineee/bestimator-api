@@ -5,7 +5,7 @@ const { getClients, getClientById, addClient, updateClient, deleteClient } = req
 // Get all Clients
 /**
  * @swagger
- * /v1/clients:
+ * /v1/clients/:
  *   get:
  *     summary: Get All Clients.
  *     description: Get all existing Clients.
@@ -18,7 +18,8 @@ const { getClients, getClientById, addClient, updateClient, deleteClient } = req
  */
 router.get('/', async (req, res) => {
     try {
-        const clients = await getClients();
+        const userId = req.auth.userId;
+        const clients = await getClients(userId);
         return clients.length > 0 ? res.status(200).json({ clients }) : res.status(200).json({});
     } catch(err){
         console.error(`Error: ${err.message}`);
@@ -48,7 +49,8 @@ router.get('/', async (req, res) => {
  */
 router.get('/:client_id', async (req, res) => {
     try {
-        const client = await getClientById(req.params.client_id);
+        const userId = req.auth.userId;
+        const client = await getClientById(userId, req.params.client_id);
         if (!client){
             return res.status(404).json({ error: 'Client not found' });
         } 
@@ -94,8 +96,9 @@ router.get('/:client_id', async (req, res) => {
  */
 router.post('/', async (req, res) => {
     try {
+        const userId = req.auth.userId;
         const data = req.body;
-        const newClient = await addClient(data);
+        const newClient = await addClient(userId, data);
         return res.status(201).json({
             message: 'New Client added successfully',
             data: newClient,
@@ -122,8 +125,8 @@ router.post('/', async (req, res) => {
  *             type: object
  *             properties:
  *               client_id:
- *                 type: integer
- *                 example: 1
+ *                 type: string
+ *                 example: gsdfg545-gf5f4g53-fdg54f-dg5g4f
  *               email:
  *                 type: string
  *                 example: example@email.com
@@ -146,9 +149,10 @@ router.post('/', async (req, res) => {
  */
 router.put('/', async (req, res) => {
     try {
+        const userId = req.auth.userId;
         const { client_id } = req.body;
         const data = req.body;
-        const updatedClient = await updateClient(client_id, data);
+        const updatedClient = await updateClient(userId, client_id, data);
         if (updatedClient){
             return res.status(200).json({
                 message: 'Client updated successfully',
@@ -177,8 +181,8 @@ router.put('/', async (req, res) => {
  *             type: object
  *             properties:
  *               client_id:
- *                 type: integer
- *                 example: 1
+ *                 type: string
+ *                 example: gsdfg545-gf5f4g53-fdg54f-dg5g4f
  *     responses:
  *       '204':
  *         description: A successful response
@@ -189,8 +193,9 @@ router.put('/', async (req, res) => {
  */
 router.delete('/', async (req, res) => {
     try {
+        const userId = req.auth.userId;
         const { client_id } = req.body;
-        const deletedClient = await deleteClient(client_id);
+        const deletedClient = await deleteClient(userId, client_id);
         if (deletedClient){
             return res.status(204).send();
         }

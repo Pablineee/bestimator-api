@@ -55,6 +55,10 @@ Estimate.belongsTo(User, { foreignKey: 'user_id' });
 Client.hasMany(Estimate, { foreignKey: 'client_id' });
 Estimate.belongsTo(Client, { foreignKey: 'client_id' });
 
+// Clients linked to Users
+User.hasMany(Client, { foreignKey: 'user_id' });
+Client.belongsTo(User, { foreignKey: 'user_id' });
+
 // Materials linked to JobTypes
 JobType.hasMany(Material, { foreignKey: 'job_type_id' });
 Material.belongsTo(JobType, { foreignKey: 'job_type_id' });
