@@ -76,6 +76,9 @@ router.get('/:client_id', async (req, res) => {
  *           schema:
  *             type: object
  *             properties:
+ *             user_id: 
+ *              type: string
+ *             example: gsdfg545-gf5f4g53-fdg54f-dg5g4f
  *               email:
  *                 type: string
  *                 example: example@email.com
