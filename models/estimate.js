@@ -60,6 +60,11 @@ const Estimate = (sequelize, DataTypes) => sequelize.define('Estimate', {
     },
     total_cost: {
         type: DataTypes.DECIMAL(10, 2)
+    },
+    isArchived: {
+        type: DataTypes.BOOLEAN,
+        allowNull: false,
+        defaultValue: false,
     }
 }, {
     schema: "bestimator",

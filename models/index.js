@@ -76,8 +76,19 @@ ProvinceWeight.hasMany(Estimate, { foreignKey: 'province_weight_id' });
 Estimate.belongsTo(ProvinceWeight, { foreignKey: 'province_weight_id' })
 
 // Many-to-Many relationship between Estimates and Materials
-Estimate.belongsToMany(Material, { through: EstimateMaterial, foreignKey: 'estimate_id' });
-Material.belongsToMany(Estimate, { through: EstimateMaterial, foreignKey: 'material_id' });
+Estimate.belongsToMany(Material, { 
+  through: EstimateMaterial,
+  foreignKey: 'estimate_id',
+  onDelete: 'CASCADE',
+  hooks: true,
+});
+
+Material.belongsToMany(Estimate, {
+  through: EstimateMaterial,
+  foreignKey: 'material_id',
+  onDelete: 'CASCADE',
+  hooks: true,
+});
 
 module.exports = {
   sequelize, // Sequelize connection for syncing and queries
